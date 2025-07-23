@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AZ-Electronics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+    }
+
+    .navbar .nav-link {
+      color: white !important;
+      text-decoration: none !important;
+    }
+
+    .navbar .nav-link:hover {
+      color: #f8f9fa !important;
+    }
+
+    .navbar .nav-link.active {
+      color: #fffb00 !important;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid" style="height: 60px;">
+      <a class="navbar-brand" href="{% url 'home' %}">AZ-Electronics</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link active" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'products' %}">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+        </ul>
+        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'registerform' %}">Register</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'loginform' %}">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="content container mt-4">
+
+    <div id="carouselExample" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="carousel-item active">
+          <img src="media/products/hm1.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="media/products/hm2.png" class="d-block w-100" alt="...">
+        </div>
+        <div class="carousel-item">
+          <img src="media/products/hm3.png" class="d-block w-100" alt="...">
+        </div>
+      </div>
+      <button class="carousel-control-prev" type="button" data-bs-target="#carouselExample" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+      </button>
+      <button class="carousel-control-next" type="button" data-bs-target="#carouselExample" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+      </button>
+    </div><br>
+
+    <div class="container-fluid py-5" style="background-color: #1f1f1f;">
+      <div class="container">
+        <div class="row text-center text-white">
+          <div class="col-md-4 mb-4 mb-md-0">
+            <i class="bi bi-truck" style="font-size: 2rem;"></i>
+            <h5 class="mt-2">Fast Delivery</h5>
+            <p>We deliver all across India in under 3 days.</p>
+          </div>
+          <div class="col-md-4 mb-4 mb-md-0">
+            <i class="bi bi-shield-check" style="font-size: 2rem;"></i>
+            <h5 class="mt-2">Genuine Products</h5>
+            <p>Only original, branded electronics with full warranty.</p>
+          </div>
+          <div class="col-md-4">
+            <i class="bi bi-credit-card" style="font-size: 2rem;"></i>
+            <h5 class="mt-2">Secure Payment</h5>
+            <p>Payments are processed via trusted gateways.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-warning text-dark text-center py-4 my-5 rounded">
+      <h4>Upgrade Your Tech Today!</h4>
+      <p>Shop the best deals on laptops, smartphones & more.</p>
+      <a href="{% url 'products' %}" class="btn btn-dark">Shop Now</a>
+    </div>
+    
+  </div>
+
+  <footer class="bg-dark text-light pt-4 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About AZ-Electronics</h5>
+          <p>AZ-Electronics is your one-stop shop for the latest and greatest in tech. From smartphones to smart homes,
+            we offer high-quality gadgets at unbeatable prices. Trusted by thousands since 2015.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="{% url 'home' %}" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="{% url 'products' %}" class="text-light text-decoration-none">Products</a></li>
+            <li><a href="{% url 'cart' %}" class="text-light text-decoration-none">Cart</a></li>
+            <li><a href="{% url 'about' %}" class="text-light text-decoration-none">About Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p>Email: support@azelectronics-shop.com</p>
+          <p>Phone: +1 234 567 8900</p>
+          <p>Location: 123 Tech Avenue, Silicon City</p>
+        </div>
+      </div>
+      <hr class="bg-light">
+      <div class="text-center">
+        &copy; 2025 AZ-Electronics. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"
+    crossorigin="anonymous"></script>
+</body>
+
+</html>

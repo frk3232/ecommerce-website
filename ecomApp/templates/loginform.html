@@ -1,0 +1,70 @@
+{% load widget_tweaks %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Login - AZ-Electronics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+      body {
+        background-color: #f8f9fa;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      .login-container {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .login-card {
+        width: 100%;
+        max-width: 380px;
+        border: none;
+        box-shadow: 0 0 12px rgba(0, 0, 0, 0.08);
+        border-radius: 10px;
+        background: white;
+        padding: 30px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="{% url 'home' %}">AZ-Electronics</a>
+      </div>
+    </nav>
+
+    <div class="login-container">
+      <div class="login-card">
+        <h4 class="mb-3 text-center">Login to your account</h4>
+        <form method="post" novalidate>
+          {% csrf_token %}
+          {% for field in form %}
+            <div class="mb-3">
+              <label class="form-label">{{ field.label }}</label>
+              {{ field|add_class:"form-control form-control-sm" }}
+              {% if field.errors %}
+                <div class="text-danger small">{{ field.errors|striptags }}</div>
+              {% endif %}
+            </div>
+          {% endfor %}
+          <div class="d-grid mb-2">
+            <button type="submit" class="btn btn-dark btn-sm">Login</button>
+          </div>
+          <div class="text-center">
+            <a href="{% url 'home' %}" class="text-decoration-none small">← Back to Home</a>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <footer class="bg-dark text-light text-center py-3 mt-auto">
+      <small>&copy; 2025 AZ-Electronics. All rights reserved.</small>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

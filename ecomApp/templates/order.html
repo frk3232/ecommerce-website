@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AZ-Electronics</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-LN+7fdVzj6u52u30Kp6M/trliBMCMKTyK833zpbD+pXdCLuTusPj697FH4R/5mcr" crossorigin="anonymous">
+
+    <script defer src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+  <style>
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+    }
+
+    body {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .content {
+      flex: 1;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg bg-body-tertiary" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="{% url 'home' %}">AZ-Electronics</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'home' %}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'products' %}">Products</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cart' %}">Cart</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about' %}">About</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'loginout' %}">Logout</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <div class="container mt-4">
+    <h1>Order Summary</h1>
+    <table class="table table-bordered">
+      <tr>
+        <th>Product Name</th>
+        <td>{{ product_name }}</td>
+      </tr>
+      <tr>
+        <th>Quantity</th>
+        <td>{{ quantity }}</td>
+      </tr>
+      <tr>
+        <th>Price per Item</th>
+        <td>₹{{ single_price }}</td>
+      </tr>
+      <tr>
+        <th>Total Price</th>
+        <td>₹{{ total_price }}</td>
+      </tr>
+      <tr class="table-success">
+        <th>Grand Total</th>
+        <td><strong>₹{{ grand_total }}</strong></td>
+      </tr>
+    </table>
+
+    <button id="checkout-button" class="btn btn-success">Confirm Order</button>
+
+    <script src="https://js.stripe.com/v3/"></script>
+    <script defer src="https://js.stripe.com/v3/"></script>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const stripe = Stripe("{{ STRIPE_PUBLIC_KEY }}");
+
+    document.getElementById("checkout-button").addEventListener("click", function () {
+      fetch("{% url 'create_checkout_session' cart_id=cart_id %}", {
+        method: "POST",
+        headers: {
+          "X-CSRFToken": "{{ csrf_token }}",
+        },
+      })
+      .then(response => response.json())
+      .then(session => {
+        if (session.id) {
+          stripe.redirectToCheckout({ sessionId: session.id });
+        } else {
+          alert("Error creating Stripe session.");
+        }
+      });
+    });
+  });
+</script>
+
+
+    <a href="{% url 'cart' %}" class="btn btn-secondary">Back to Cart</a>
+  </div><br>
+
+
+  <footer class="bg-dark text-light pt-4 pb-3">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About AZ-Electronics</h5>
+          <p>AZ-Electronics is your one-stop shop for the latest and greatest in tech. From smartphones to smart homes,
+            we offer high-quality gadgets at unbeatable prices. Trusted by thousands since 2015.</p>
+        </div>
+        <div class="col-md-4">
+          <h5>Quick Links</h5>
+          <ul class="list-unstyled">
+            <li><a href="{% url 'home' %}" class="text-light text-decoration-none">Home</a></li>
+            <li><a href="{% url 'products' %}" class="text-light text-decoration-none">Products</a></li>
+            <li><a href="{% url 'cart' %}" class="text-light text-decoration-none">Cart</a></li>
+            <li><a href="{% url 'about' %}" class="text-light text-decoration-none">About Us</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h5>Contact Us</h5>
+          <p>Email: support@azelectronics-shop.com</p>
+          <p>Phone: +1 234 567 8900</p>
+          <p>Location: 123 Tech Avenue, Silicon City</p>
+        </div>
+      </div>
+      <hr class="bg-light">
+      <div class="text-center">
+        &copy; 2025 AZ-Electronics. All rights reserved.
+      </div>
+    </div>
+  </footer>
+
+  
+</body>
+
+</html>
